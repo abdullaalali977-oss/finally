@@ -405,6 +405,11 @@ def create_app() -> FastAPI:
             portfolio = _build_portfolio(state.price_cache, conn)
             conn.commit()
 
+        # Ensure market source tracks this ticker for live price updates
+        ticker = _ticker(request.ticker)
+        if state.market_source and ticker not in (state.market_source.get_tickers() or []):
+            await state.market_source.add_ticker(ticker)
+
         return {"trade": executed, "portfolio": portfolio}
 
     @app.get("/api/portfolio/history")
@@ -481,6 +486,10 @@ def create_app() -> FastAPI:
                             ),
                         )
                     )
+                    # Ensure market source tracks traded tickers for live prices
+                    traded_ticker = _ticker(trade.ticker)
+                    if state.market_source and traded_ticker not in (state.market_source.get_tickers() or []):
+                        await state.market_source.add_ticker(traded_ticker)
                 except HTTPException as exc:
                     errors.append(f"trade {trade.side} {trade.ticker}: {exc.detail}")
 

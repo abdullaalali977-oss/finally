@@ -12,6 +12,27 @@ SEED_PRICES: dict[str, float] = {
     "JPM": 195.00,
     "V": 280.00,
     "NFLX": 600.00,
+    # Additional common tickers for trade fallback pricing
+    "SPY": 590.00,
+    "QQQ": 510.00,
+    "IWM": 220.00,
+    "DIA": 430.00,
+    "AMD": 160.00,
+    "INTC": 22.00,
+    "BA": 180.00,
+    "DIS": 110.00,
+    "PYPL": 70.00,
+    "UBER": 75.00,
+    "COIN": 250.00,
+    "SQ": 80.00,
+    "SNAP": 12.00,
+    "PLTR": 25.00,
+    "SOFI": 10.00,
+    "WMT": 175.00,
+    "KO": 60.00,
+    "PEP": 170.00,
+    "JNJ": 155.00,
+    "XOM": 105.00,
 }
 
 # Per-ticker GBM parameters
